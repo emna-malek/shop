@@ -1,0 +1,76 @@
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand waves-effect" href="/">
+        <strong class="blue-text"> Crystaleez </strong>
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link waves-effect" href="/">Accueil
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'commandes:order_create' %}" target="_blank">Chekout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href=" " target="_blank">Products</a>
+
+        </ul>
+
+
+        <!-- Right -->
+      <div id="menu">
+
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+
+            <a class="nav-link waves-effect" href="{% url 'cart:cart_detail' %}">
+
+              <span class="badge red z-depth-1 mr-1" >{{cart.get_total_quantity}}</span>
+
+              <i class="fas fa-shopping-cart"></i>
+              <span class="clearfix d-none d-sm-inline-block"> Panier </span>
+            </a>
+
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item menu">
+            <a class="nav-link waves-effect" href="{% url 'comptes:view_profile' %}">
+              <i class="fas fa-user"></i>
+              <span class="clearfix d-none d-sm-inline-block">Bienvenue"{{user.username}}"</span>
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item ">
+            <a class="nav-link waves-effect" href="{% url 'comptes:login_url' %}">
+              <span class="clearfix d-none d-sm-inline-block"> Se connecter</span>
+            </a>
+          </li>
+          {% endif %}
+          <li class="nav-item menu"><a class="nav-link waves-effect" href="#"> <span class="clearfix d-none d-sm-inline-block "><i class="fas fa-angle-down"></i></i></span></a>
+            <ul>
+              <li class="nav-item"><a class="nav-link waves-effect" href="{% url 'comptes:register_view' %}"><span class="clearfix d-none d-sm-inline-block"> S'inscrire </span></a></li>
+              <li class="nav-item"><a class="nav-link waves-effect" href="{% url 'comptes:logout_view' %}"><span class="clearfix d-none d-sm-inline-block"><i class="far fa-arrow-alt-circle-right"></i>Déconnexion </span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+
+</nav>

@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <main class="mt-5 pt-4">
+    <div class=" container-fluid dark-grey-text mt-7">
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-3 mb-4 pos zoom">
+
+          <img src="{{ produit.image.url}}" class="img-fluid" alt="">
+        </div>
+        <hr>
+
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+          <!--Content-->
+          <div class="p-4">
+<!--
+            <div class="mb-3">
+              <a href="">
+                <span class="badge purple mr-1">{{produit.catégorie}}</span>
+              </a>
+              <a href="">
+                <span class="badge blue mr-1">New</span>
+              </a>
+              <a href="">
+                <span class="badge red mr-1">Bestseller</span>
+              </a>
+            </div> -->
+
+              <a href="">
+                <span class="badge purple mr-1">{{produit.get_category_display }}</span>
+              </a>
+            </div>
+            <p class="lead">
+              {% if produit.discount_price %}
+              <del>${{ produit.prix}}</del>
+              <span class="mr-1">
+                <del>${{ produit.prix}}</del>
+              </span>
+              <span>${{ produit.discount_price }}</span>
+              {% else %}
+                   <strong> {{produit.nom}}</strong><br>
+              <span><strong>{{produit.prix}}DT</strong></span>
+              {% endif %}
+            </p>
+
+            <p class="lead font-weight-bold">Description</p>
+            <p>{{produit.description|linebreaks}}</p>
+           <form method="post" action="{% url 'cart:cart_add' produit.id%} ">
+              {% csrf_token %}
+              {{cart_product_form.quantity}}
+             <button class="btn btn-secondary btn-md my-0 " type="submit"><i class="fas fa-shopping-cart ml-1"></i>       J'ACHÈTE</button>
+
+           </form>
+
+
+
+
+            </a>
+
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+      <hr>
+
+
+
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4 zoom">
+
+          <img src="{{ produit.image1.url}}" class="img-fluid" alt="">
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4 zoom">
+
+          <img src="{{ produit.image2.url}}" class="img-fluid" alt="">
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4 zoom">
+
+         <img src="{{ produit.image3.url}}" class="img-fluid" alt="">
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+    <div class="row d-flex justify-content-center wow fadeIn">
+
+        <div class="col-md-6 text-center">
+
+          <h4 class="my-4 h4">Détails</h4>
+
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit
+            voluptates,
+            quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p>
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+      <!--Grid row-->
+
+    </div>
+  </main>
+
+{% endblock content %}
