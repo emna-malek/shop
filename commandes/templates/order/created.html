@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title_ %}
+	Thank you
+{% endblock title_ %}
+
+{% block content %}
+    <div style="height:20px;"></div>
+	<div class="center-div">
+	<h1>Thank you</h1>
+	<p>your order has been successfully completed. your order number is <strong>{{commande.id}}</strong></p>
+    <main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+      <h2 class="my-5 h2 text-center">FINALISER VOTRE COMMANDE </h2>
+      <div class="row">
+        <div class="col-md-8 mb-4">
+          <div class="card">
+           <form method="post" class="card-body" >
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <div class="md-form ">
+                    <label for="Nom" class=""></label>
+                  </div>
+                  {{form.nom}}
+                </div>
+              </div>
+               <hr>
+              <div class="d-block my-3">
+                <div class="custom-control custom-radio">
+                  <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                  <label class="custom-control-label" for="credit">Livraison standard</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="debit">Livraison en point relais</label>
+                </div>
+
+			  </div>
+			   <button class="btn btn-primary btn-lg btn-block" type="submit">Passer votre commande</button>
+		   </form>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+
+{% endblock content %}

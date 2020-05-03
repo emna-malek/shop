@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+      <h2 class="my-5 h2 text-center">FINALISER VOTRE COMMANDE </h2>
+      <div class="row">
+        <div class="col-md-8 mb-4">
+          <div class="card">
+           <form method="post" class="card-body" >
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <div class="md-form ">
+                    <label for="Nom" class=""></label>
+                  </div>
+                  {{form.nom}}
+                </div>
+                <div class="col-md-6 mb-2">
+                  <div class="md-form">
+                      <label for="prénom" ></label>
+                  </div>
+                  {{form.prénom}}
+                </div>
+              </div>
+               <div class="md-form mb-5">
+                <label for="phone" class=""> </label>
+              </div>
+             {{form.phone}}
+              <div class="md-form mb-5">
+                <label for="email" class=""> </label>
+              </div>
+
+             {{form.email}}
+              <div class="md-form mb-5">
+                <label for="adresse" class=""></label>
+              </div>
+             {{form.adresse}}
+              <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                  <label for="code_postal"></label>
+                  {{form.code_postal}}
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                  <label for="ville"></label>
+                  {{form.ville}}
+                </div>
+              </div>
+               <hr>
+              <div class="d-block my-3">
+                <div class="custom-control custom-radio">
+                  <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                  <label class="custom-control-label" for="credit">Livraison standard</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="debit">Livraison en point relais</label>
+                </div>
+
+                <!--<div class="custom-control custom-radio">
+                  <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="paypal">Paypal</label>
+                </div>-->
+              </div>
+
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Passer votre commande</button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+        <ul class="col-md-4 mb-4">
+
+
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted"> Votre panier </span>
+
+            <span class="badge badge-secondary badge-pill">{{cart.get_total_quantity}}</span>
+
+          </h4>
+
+          <!-- Cart -->
+          <ul class="list-group mb-3 z-depth-1">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                {% for item in cart %}
+                <h6 class="my-0">{{item.produit.nom}} </h6>
+
+                <small class="text-muted">{{item.quantity}} x {{item.produit.nom}}</small>
+                <strong class="list-group-item d-flex justify-content-between">{{item.total_prix}} DT</strong>
+                <hr>
+                 {% endfor %}
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span> Total: </span>
+              <strong> {{cart.get_total_price}} DT</strong>
+            </li>
+          </ul>
+            {% if cart.coupon %}
+            <li class="list-group-item d-flex justify-content-between bg-light">
+                <div class="text-success">
+                {% block trans   %}
+                {% with code=cart.coupon.code discount=cart.coupon.discount%}
+                <h6 class="my-0">Promo code</h6>
+                <small>"{{code}}" coupon ({{discount}})% off</small>
+                {% endwith %}
+                {% endblock trans %}
+                </div>
+                <span class="text-success">- {{cart.get_discount|floatformat:"2"}}DT</span>
+            </li>
+            {% endif %}
+            <li class="list-group-item d-flex justify-content-between">
+               <span>Total (DT)</span>
+               <strong>{{cart.get_total_price_after_discount|floatformat:"2"}} DT</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script>
+		
+
+		//Query All input fields
+		var form_fields = document.getElementsByTagName('input')
+		form_fields[1].placeholder='Nom..';
+		form_fields[2].placeholder='Prénom..';
+		form_fields[3].placeholder='Numéro de téléphone mobile';
+		form_fields[4].placeholder='Email..';
+		form_fields[5].placeholder='Adresse..';
+		form_fields[6].placeholder='Code_Postal..';
+		form_fields[7].placeholder='Ville..';
+
+
+
+
+		for (var field in form_fields){
+			form_fields[field].className += ' form-control'
+		}
+	</script>
+  </main>
+{% endblock content %}
